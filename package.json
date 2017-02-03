@@ -1,0 +1,29 @@
+{
+  "name": "malta-js-toolkit",
+  "version": "1.0.0",
+  "description": "Malta plugin to enable some special features",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fedeghe/malta-js-toolkit.git"
+  },
+  "keywords": [
+    "malta",
+    "malta plugin",
+    "malta js toolkit"
+  ],
+  "author": "Federico Ghedina <federico.ghedina@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/fedeghe/malta-js-toolkit/issues"
+  },
+  "homepage": "https://github.com/fedeghe/malta-js-toolkit#readme",
+
+  "dependencies": {
+    "malta": ">=3.3.2"
+  },
+  "main": "index.js"
+}
