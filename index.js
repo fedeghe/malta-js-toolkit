@@ -48,7 +48,7 @@ function js_toolkit(obj, options) {
         pre += "\n/*---/ host lock \\---*/\n"+
         '(function () {'+
             'var host = document.location.host,' + "\n" +
-            '   auth = "' + tmp + '" == microHash(host.replace(/^https?:\\\/\\\//, "//"));' + "\n" +
+            '   auth = "' + tmp + '" == microHash(host.replace(/^[http]?s?:\\\/\\\/[www\\\.]?/, "//"));' + "\n" +
             microHash.toString()+"\n" +
             'if (!auth) throw new Error("NO AUTH for " + host + " to EXECUTE!");' + "\n" +
         '})();' +
