@@ -33,12 +33,12 @@ function js_toolkit(obj, options) {
             'var proceed = true,' + "\n"+
                 'scripts = document.getElementsByTagName("script"),'+ "\n" +
                 'l = scripts.length - 1,'+ "\n" +
-                'script = scripts[l],'+ "\n" +
-                'domainSRC = script.src.replace(/^https?:\\\/\\\/[www]?/, "//").replace(/\\\?.*/, "");'+ "\n" +
+                'script = "currentScript" in document ? document.currentScript : scripts[l],'+ "\n" +
+                'scriptSRC = script.src.replace(/^https?:\\\/\\\/[www]?/, "//").replace(/\\\?.*/, "");'+ "\n" +
             ''+
             microHash.toString()+"\n" +
-            'proceed = "' + tmp + '" === microHash(domainSRC);'+ "\n" +
-            'if (!proceed) throw new Error("NO AUTH for " + domainSRC + " to EXECUTE!");' + "\n" +
+            'proceed = "' + tmp + '" === microHash(scriptSRC);'+ "\n" +
+            'if (!proceed) throw new Error("NO AUTH for " + scriptSRC + " to EXECUTE!");' + "\n" +
         '})();' +
         "\n/*---\\ src lock /---*/\n";
     }
