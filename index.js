@@ -34,7 +34,7 @@ function js_toolkit(obj, options) {
                 'scripts = document.getElementsByTagName("script"),'+ "\n" +
                 'l = scripts.length - 1,'+ "\n" +
                 'script = "currentScript" in document ? document.currentScript : scripts[l],'+ "\n" +
-                'scriptSRC = script.src.replace(/^https?:\\\/\\\/[www]?/, "//").replace(/\\\?.*/, "");'+ "\n" +
+                'scriptSRC = script.src.replace(/^https?:\\\/\\\/(www\\\.)?/, "//").replace(/\\\?.*/, "");'+ "\n" +
             ''+
             microHash.toString()+"\n" +
             'proceed = "' + tmp + '" === microHash(scriptSRC);'+ "\n" +
@@ -48,7 +48,7 @@ function js_toolkit(obj, options) {
         pre += "\n/*---/ host lock \\---*/\n"+
         '(function () {'+
             'var host = document.location.host,' + "\n" +
-            '   auth = "' + tmp + '" == microHash(host.replace(/^[http]?s?:\\\/\\\/[www\\\.]?/, "//"));' + "\n" +
+            '   auth = "' + tmp + '" == microHash(host.replace(/^https?:\\\/\\\/(www\\\.)?/, "//"));' + "\n" +
             microHash.toString()+"\n" +
             'if (!auth) throw new Error("NO AUTH for " + host + " to EXECUTE!");' + "\n" +
         '})();' +
