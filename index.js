@@ -54,6 +54,24 @@ function js_toolkit(obj, options) {
         '})();' +
         "\n/*---\\ host lock /---*/\n";
     }
+
+    if (
+        'keyApi' in options && options.keyApi
+        &&
+        'nameApi' in options && options.nameApi
+    ) {
+        tmp = microHash(options.keyApi);
+        pre += "\n/*---/ api lock \\---*/\n"+
+        '(function () {'+
+            '!("' + options.nameApi + '" in window) && lock();' +
+            'var auth = "' + tmp + '" == microHash(' + options.nameApi + ');' + "\n" +
+            microHash.toString()+"\n" +
+            '!auth && lock();' + "\n" +
+            'function lock() {throw new Error("NOT AUTHORIZED");}' + 
+        '})();' +
+        "\n/*---\\ api lock /---*/\n";
+    }
+
     obj.content = pre + obj.content;
 
     return function (solve, reject) {
