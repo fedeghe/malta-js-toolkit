@@ -17,7 +17,7 @@ allows to lock the execution of the script if the host where the script is loade
 - __apiKey__ && __apiName__  
 allows to specify key value and a variable name to execute the script execution only if in the global scope can be found a variable with the right value: e.g  
 ```
-malta app/script.js public/js -plugins=malta-js-toolkit[apiName=\"secretKey\",apiKey=\"abcd1234\"]...malta-js-obfuscator
+malta app/script.js public/js -plugins=malta-js-toolkit[apiName:\"secretKey\",apiKey:\"abcd1234\"]...malta-js-obfuscator
 ```
 now whenever the resulting script will be loaded as
 ```html
@@ -41,7 +41,7 @@ in this case:
 
 or in the .json file :
 ```
-"app/source/index.js" : "public/js -plugins=malta-js-toolkit[noConsole:true,lockScriptUrl:\'//mydomain.com/js/app.js\',lockHostUrl:\'//mydomain.com\',apiName=\"secretKey\",apiKey=\"abcd1234\"]"
+"app/source/index.js" : "public/js -plugins=malta-js-toolkit[noConsole:true,lockScriptUrl:\'//mydomain.com/js/app.js\',lockHostUrl:\'//mydomain.com\',apiName:\'secretKey\',apiKey:\'abcd1234\']"
 ```
 or in a script : 
 ``` js
@@ -51,7 +51,7 @@ Malta.get().check([
     'app/source/index.js',
     'public/js',
     '-plugins=malta-js-toolkit',
-    '-options=noConsole:true,lockScriptUrl:"//mydomain.com/js/app.js",lockHostUrl:"//mydomain.com",apiName="secretKey",apiKey="' + dynKey + '"'
+    '-options=noConsole:true,lockScriptUrl:"//mydomain.com/js/app.js",lockHostUrl:"//mydomain.com",apiName:"secretKey",apiKey:"' + dynKey + '"'
     ]).start(function (o) {
         var s = this;
         console.log('name : ' + o.name)
