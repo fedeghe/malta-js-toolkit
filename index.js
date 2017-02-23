@@ -36,25 +36,25 @@ function js_toolkit(obj, options) {
                 'l = scripts.length - 1,'+ "\n" +
                 'script = "currentScript" in document ? document.currentScript : scripts[l],'+ "\n" +
                 'scriptSRC = script.src.replace(/^https?:\\\/\\\/(www\\\.)?/, "//").replace(/\\\?.*/, "");'+ "\n" +
-            ''+
+            ''+ "\n" +
             microHash.toString()+"\n" +
             'proceed = "' + tmp + '" === microHash(scriptSRC);'+ "\n" +
             'if (!proceed) throw new Error("' + label + '");' + "\n" +
-        '})();' +
-        "\n/*---\\ src lock /---*/\n";
+        '})();' + "\n" +
+        "/*---\\ src lock /---*/\n";
     }
 
     if ('lockHostUrl' in options && options.lockHostUrl) {
         tmp = microHash(options.lockHostUrl);
         label = 'message' in options ? options.message : "NOT AUTHORIZED (wrong host)";
         pre += "\n/*---/ host lock \\---*/\n"+
-        '(function () {'+
+        '(function () {'+ "\n" +
             'var host = document.location.host,' + "\n" +
             '   auth = "' + tmp + '" == microHash(host.replace(/^https?:\\\/\\\/(www\\\.)?/, "//"));' + "\n" +
             microHash.toString()+"\n" +
             'if (!auth) throw new Error("' + label + '");' + "\n" +
-        '})();' +
-        "\n/*---\\ host lock /---*/\n";
+        '})();' + "\n" +
+        "/*---\\ host lock /---*/\n";
     }
 
     if (
@@ -65,14 +65,14 @@ function js_toolkit(obj, options) {
         tmp = microHash(options.keyApi);
         label = 'message' in options ? options.message : "NOT AUTHORIZED (wrong apikey)";
         pre += "\n/*---/ api lock \\---*/\n"+
-        '(function () {'+
-            '!("' + options.nameApi + '" in window) && lock();' +
+        '(function () {'+ "\n" +
+            '!("' + options.nameApi + '" in window) && lock();' + "\n" +
             'var auth = "' + tmp + '" == microHash(' + options.nameApi + ');' + "\n" +
             microHash.toString()+"\n" +
             '!auth && lock();' + "\n" +
-            'function lock() {throw new Error("' + label + '");}' + 
-        '})();' +
-        "\n/*---\\ api lock /---*/\n";
+            'function lock() {throw new Error("' + label + '");}' +  "\n" +
+        '})();' + "\n" +
+        "/*---\\ api lock /---*/\n";
     }
 
     obj.content = pre + obj.content;
