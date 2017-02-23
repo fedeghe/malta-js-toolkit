@@ -6,13 +6,13 @@ function js_toolkit(obj, options) {
 
     var self = this,
         start = new Date(),
-        msg,
+        msg, label,
         pluginName = path.basename(path.dirname(__filename)),
         pre = '',
         tmp,
         lines;
 
-    function microHash(str){var res = 0, i = 0, l = str.length;for (;i<l;i++) {res += '' + str.charCodeAt(i)*20091976;}return "="+res;}
+    function microHash(str){var res = 0,i = 0,l = str.length;for (;i<l;i++) {res += '' + str.charCodeAt(i)*20091976;}return "="+res;}
 
     options = options || {};
 
@@ -28,6 +28,7 @@ function js_toolkit(obj, options) {
     }
     if ('lockScriptUrl' in options && options.lockScriptUrl) {
         tmp = microHash(options.lockScriptUrl);
+        label = 'message' in options ? options.message : "NOT AUTHORIZED (not hostable)";
         pre += "\n/*---/ src lock \\---*/\n" + 
         '(function () {'+ "\n" +
             'var proceed = true,' + "\n"+
@@ -38,19 +39,20 @@ function js_toolkit(obj, options) {
             ''+
             microHash.toString()+"\n" +
             'proceed = "' + tmp + '" === microHash(scriptSRC);'+ "\n" +
-            'if (!proceed) throw new Error("NO AUTH for " + scriptSRC + " to EXECUTE!");' + "\n" +
+            'if (!proceed) throw new Error("' + label + '");' + "\n" +
         '})();' +
         "\n/*---\\ src lock /---*/\n";
     }
 
     if ('lockHostUrl' in options && options.lockHostUrl) {
         tmp = microHash(options.lockHostUrl);
+        label = 'message' in options ? options.message : "NOT AUTHORIZED (wrong host)";
         pre += "\n/*---/ host lock \\---*/\n"+
         '(function () {'+
             'var host = document.location.host,' + "\n" +
             '   auth = "' + tmp + '" == microHash(host.replace(/^https?:\\\/\\\/(www\\\.)?/, "//"));' + "\n" +
             microHash.toString()+"\n" +
-            'if (!auth) throw new Error("NO AUTH for " + host + " to EXECUTE!");' + "\n" +
+            'if (!auth) throw new Error("' + label + '");' + "\n" +
         '})();' +
         "\n/*---\\ host lock /---*/\n";
     }
@@ -61,13 +63,14 @@ function js_toolkit(obj, options) {
         'nameApi' in options && options.nameApi
     ) {
         tmp = microHash(options.keyApi);
+        label = 'message' in options ? options.message : "NOT AUTHORIZED (wrong apikey)";
         pre += "\n/*---/ api lock \\---*/\n"+
         '(function () {'+
             '!("' + options.nameApi + '" in window) && lock();' +
             'var auth = "' + tmp + '" == microHash(' + options.nameApi + ');' + "\n" +
             microHash.toString()+"\n" +
             '!auth && lock();' + "\n" +
-            'function lock() {throw new Error("NOT AUTHORIZED");}' + 
+            'function lock() {throw new Error("' + label + '");}' + 
         '})();' +
         "\n/*---\\ api lock /---*/\n";
     }
