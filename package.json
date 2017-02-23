@@ -23,7 +23,7 @@
   "homepage": "https://github.com/fedeghe/malta-js-toolkit#readme",
 
   "dependencies": {
-    "malta": ">=3.3.2"
+    "malta": ">=3.4.0"
   },
   "main": "index.js"
 }
