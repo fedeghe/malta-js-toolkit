@@ -1,6 +1,6 @@
 {
   "name": "malta-js-toolkit",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Malta plugin to enable some special features",
   
   "scripts": {
@@ -16,7 +16,7 @@
     "malta js toolkit"
   ],
   "author": "Federico Ghedina <federico.ghedina@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fedeghe/malta-js-toolkit/issues"
   },
