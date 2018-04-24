@@ -1,6 +1,6 @@
 {
   "name": "malta-js-toolkit",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Malta plugin to enable some special features",
   
   "scripts": {
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/fedeghe/malta-js-toolkit#readme",
 
   "dependencies": {
-    "malta": ">=3.4.0"
+    "malta": ">=3.8.3"
   },
   "main": "index.js"
 }
