@@ -83,11 +83,11 @@ function js_toolkit(obj, options) {
             if (err == null) {
                 msg = 'plugin ' + pluginName.white() + ' wrote ' + obj.name +' (' + self.getSize(obj.name) + ')';
             } else {
-                console.log('[ERROR] js_toolkit says:');
-                console.dir(err);
-                self.stop();
+                self.doErr(err, o, pluginName);
             }
-            solve(obj);
+            err
+                ? reject(`Plugin ${pluginName} error: ${err}`)
+                : solve(obj);
             self.notifyAndUnlock(start, msg);
         })
     }
