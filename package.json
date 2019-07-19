@@ -1,27 +1,27 @@
 {
-  "name": "malta-js-toolkit",
-  "version": "1.0.12",
-  "description": "Malta plugin to enable some special features",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fedeghe/malta-js-toolkit.git"
-  },
-  "keywords": [
-    "malta",
-    "malta plugin",
-    "malta js toolkit"
-  ],
-  "author": "Federico Ghedina <federico.ghedina@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/fedeghe/malta-js-toolkit/issues"
-  },
-  "homepage": "https://github.com/fedeghe/malta-js-toolkit#readme",
-  "dependencies": {
-    "malta": ">=3.8.14"
-  },
-  "main": "index.js"
+    "name": "malta-js-toolkit",
+    "version": "1.0.12",
+    "description": "Malta plugin to enable some special features",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fedeghe/malta-js-toolkit.git"
+    },
+    "keywords": [
+        "malta",
+        "malta plugin",
+        "malta js toolkit"
+    ],
+    "author": "Federico Ghedina <fedeghe@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/fedeghe/malta-js-toolkit/issues"
+    },
+    "homepage": "https://github.com/fedeghe/malta-js-toolkit#readme",
+    "dependencies": {
+        "malta": ">=3.8.14"
+    },
+    "main": "index.js"
 }
