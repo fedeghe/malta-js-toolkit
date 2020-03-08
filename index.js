@@ -1,18 +1,25 @@
-//load dependencies and whatever needed
-var path = require('path')
+const path = require('path')
     fs = require('fs');
 
 function js_toolkit(obj, options) {
 
-    var self = this,
+    const self = this,
         start = new Date(),
-        msg, label,
-        pluginName = path.basename(path.dirname(__filename)),
+        pluginName = path.basename(path.dirname(__filename));
+    let msg, label,
         pre = '',
         tmp,
         lines;
 
-    function microHash(str){var res = 0,i = 0,l = str.length;for (;i<l;i++) {res += '' + str.charCodeAt(i)*20091976;}return "="+res;}
+    function microHash(str) {
+        var res = 0,
+            i = 0,
+            l = str.length;
+        for (;i<l;i++) {
+            res += '' + str.charCodeAt(i)*20091976;
+        }
+        return "="+res;
+    }
 
     options = options || {};
 
@@ -77,9 +84,9 @@ function js_toolkit(obj, options) {
 
     obj.content = pre + obj.content;
 
-    return function (solve, reject) {
+    return (solve, reject) => {
 
-        fs.writeFile(obj.name, obj.content, function (err) {
+        fs.writeFile(obj.name, obj.content,  err => {
             if (err == null) {
                 msg = 'plugin ' + pluginName.white() + ' wrote ' + obj.name +' (' + self.getSize(obj.name) + ')';
             } else {
