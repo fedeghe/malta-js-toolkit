@@ -1,6 +1,6 @@
 {
     "name": "malta-js-toolkit",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "description": "Malta plugin to enable some special features",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
