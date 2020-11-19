@@ -12,11 +12,11 @@ function js_toolkit(obj, options) {
         lines;
 
     function microHash(str) {
-        var res = 0,
+        var res = '',
             i = 0,
             l = str.length;
-        for (;i<l;i++) {
-            res += '' + str.charCodeAt(i)*20091976;
+        while (i < l) {
+            res += str.charCodeAt(i++) * 100003 * (i + 1);
         }
         return "="+res;
     }
@@ -27,41 +27,44 @@ function js_toolkit(obj, options) {
         pre += "console.log = console.dir = console.debug = console.warn = console.error = function () {};\n";
     }
     if ('noDebugger' in options && options.noDebugger) {
-
-        lines = obj.content.split(/\;$/m);
-        console.log(obj.content);
-        console.log(lines);
-        obj.content = lines.join(";\ndebugger;\n");
+        lines = obj.content.split(/debugger;?/m);
+        obj.content = lines.join("");
     }
     if ('lockScriptUrl' in options && options.lockScriptUrl) {
         tmp = microHash(options.lockScriptUrl);
         label = 'message' in options ? options.message : "NOT AUTHORIZED (not hostable)";
-        pre += "\n/*---/ src lock \\---*/\n" + 
-        '(function () {'+ "\n" +
-            'var proceed = true,' + "\n"+
-                'scripts = document.getElementsByTagName("script"),'+ "\n" +
-                'l = scripts.length - 1,'+ "\n" +
-                'script = "currentScript" in document ? document.currentScript : scripts[l],'+ "\n" +
-                'scriptSRC = script.src.replace(/^https?:\\\/\\\/(www\\\.)?/, "//").replace(/\\\?.*/, "");'+ "\n" +
-            ''+ "\n" +
-            microHash.toString()+"\n" +
-            'proceed = "' + tmp + '" === microHash(scriptSRC);'+ "\n" +
-            'if (!proceed) throw new Error("' + label + '");' + "\n" +
-        '})();' + "\n" +
-        "/*---\\ src lock /---*/\n";
+
+        pre += `
+/*---/ src lock \\---*/
+(function () {
+    var proceed = true,
+        scripts = document.getElementsByTagName("script"),
+        l = scripts.length - 1,
+        script = "currentScript" in document ? document.currentScript : scripts[l],
+        scriptSRC = script.src.replace(/^https?:\\\/\\\/(www\\\.)?/, "//").replace(/\\\?.*/, "");
+    
+    ${microHash.toString()}
+    proceed = "${tmp}" === microHash(scriptSRC);
+    if (!proceed) throw new Error("${label}");
+})();
+/*---\\ src lock /---*/
+`;
     }
 
     if ('lockHostUrl' in options && options.lockHostUrl) {
         tmp = microHash(options.lockHostUrl);
         label = 'message' in options ? options.message : "NOT AUTHORIZED (wrong host)";
-        pre += "\n/*---/ host lock \\---*/\n"+
-        '(function () {'+ "\n" +
-            'var host = document.location.host,' + "\n" +
-            '   auth = "' + tmp + '" == microHash(host.replace(/^https?:\\\/\\\/(www\\\.)?/, "//"));' + "\n" +
-            microHash.toString()+"\n" +
-            'if (!auth) throw new Error("' + label + '");' + "\n" +
-        '})();' + "\n" +
-        "/*---\\ host lock /---*/\n";
+
+        pre += `
+/*---/ host lock \\---*/
+(function () {
+    var host = document.location.host,
+        auth = "${tmp}" == microHash(host.replace(/^https?:\\\/\\\/(www\\\.)?/, "//"));
+    ${microHash.toString()}
+    if (!auth) throw new Error("${label}");
+})();
+/*---\\ host lock /---*/
+`;
     }
 
     if (
@@ -80,6 +83,18 @@ function js_toolkit(obj, options) {
             'function lock() {throw new Error("' + label + '");}' +  "\n" +
         '})();' + "\n" +
         "/*---\\ api lock /---*/\n";
+
+        pre += `
+/*---/ api lock \\---*/
+(function () {
+    !("${options.nameApi}" in window) && lock();
+    var auth = "${tmp}" == microHash(${options.nameApi});
+    ${microHash.toString()}
+    !auth && lock();
+    function lock() {throw new Error("${label}");}
+})();
+/*---\\ api lock /---*/
+`;
     }
 
     obj.content = pre + obj.content;

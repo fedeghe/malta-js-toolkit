@@ -14,6 +14,9 @@ Allows to enable some extra features on javascript code
 - __noConsole__    
 disable all console functions, if `true` is passed  
 
+- __noDebugger__    
+removes all `debugger` occurrences, if `true` is passed  
+
 - __lockScriptUrl__ (*)  
 allows to lock the execution of the script if the `src` attribute of the script differs from the one passed (in this case use the generic protocol in the url passed)  
 
@@ -21,7 +24,7 @@ allows to lock the execution of the script if the `src` attribute of the script 
 allows to lock the execution of the script if the host where the script is loaded differs from the one passed (even in this case use the generic protocol in the url passed)  
 
 - __apiKey__ && __apiName__ (*)  
-allows to specify key value and a variable name to execute the script execution only if in the global scope can be found a variable with the right value.
+allows to specify key value and a variable name to execute the script only if in the global scope can be found a variable with the right value.
 
 (*) it is possible to use an additional `message` parameter to overwrite the default failure message that will appear in the browser console.  
 
